@@ -83,6 +83,11 @@ if (strtoupper((string) ($_SERVER['REQUEST_METHOD'] ?? 'GET')) === 'POST') {
     }
 }
 
+// uploads whose generated reports were deleted earlier are not listed any more
+try {
+    (new SourceFiles($storage, $uploads))->removeWithoutReports((new \App\Files\GeneratedRepository($storage))->all());
+} catch (\Throwable) {
+}
 $rows = array_map([UploadPresenter::class, 'row'], $uploads->all());
 $profiles = (new Branding($storage))->chooserList(new TemplateManager());
 

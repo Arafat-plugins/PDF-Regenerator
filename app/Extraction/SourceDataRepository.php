@@ -80,7 +80,7 @@ final class SourceDataRepository
             if (!isset($doc['working']) || !is_array($doc['working'])) {
                 return $doc;
             }
-            $doc['working'] = $change($doc['working']);
+            $doc['working'] = $change(self::upgradeCheckRows($doc['working']));
             $doc['updated_at'] = date('Y-m-d H:i:s');
             $result = $doc['working'];
 
@@ -102,7 +102,7 @@ final class SourceDataRepository
         $result = null;
         JsonStore::update($this->file($sourceId), static function (array $doc) use (&$result): array {
             if (isset($doc['original']) && is_array($doc['original'])) {
-                $doc['working'] = DocumentEditor::reset($doc['original'], is_array($doc['working'] ?? null) ? $doc['working'] : []);
+                $doc['working'] = DocumentEditor::reset(self::upgradeCheckRows($doc['original']), is_array($doc['working'] ?? null) ? $doc['working'] : []);
                 $doc['updated_at'] = date('Y-m-d H:i:s');
                 $result = $doc['working'];
             }
@@ -133,6 +133,30 @@ final class SourceDataRepository
             return null;
         }
 
-        return $doc[$part];
+        return self::upgradeCheckRows($doc[$part]);
+    }
+
+    /**
+     * Data extracted before check-mark rows counted as PDF data: an untouched "inferred" row
+     * (label + check icon in the PDF) is shown as "From PDF" without review.
+     *
+     * @param array<string, mixed> $doc
+     * @return array<string, mixed>
+     */
+    public static function upgradeCheckRows(array $doc): array
+    {
+        foreach ((array) ($doc['lists'] ?? []) as $key => $rows) {
+            if (!is_array($rows)) {
+                continue;
+            }
+            foreach ($rows as $i => $row) {
+                if (is_array($row) && ($row['source'] ?? null) === 'inferred') {
+                    $doc['lists'][$key][$i]['source'] = 'profile_rule';
+                    $doc['lists'][$key][$i]['needs_review'] = false;
+                }
+            }
+        }
+
+        return $doc;
     }
 }

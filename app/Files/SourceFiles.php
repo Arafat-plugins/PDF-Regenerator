@@ -49,6 +49,29 @@ final class SourceFiles
     }
 
     /**
+     * Uploads marked "Generated" whose generated reports were all deleted are removed too
+     * (the report was the reason to keep them).
+     *
+     * @param list<array<string, mixed>> $generated remaining generated entries
+     * @return int removed uploads
+     */
+    public function removeWithoutReports(array $generated): int
+    {
+        $used = [];
+        foreach ($generated as $g) {
+            $used[(string) ($g['source_id'] ?? '')] = true;
+        }
+        $removed = 0;
+        foreach ($this->uploads->all() as $item) {
+            if (($item['status'] ?? '') === 'generated' && !isset($used[(string) $item['id']]) && $this->delete($item['id']) !== null) {
+                $removed++;
+            }
+        }
+
+        return $removed;
+    }
+
+    /**
      * Delete the PDF, its metadata entry and its extracted working data.
      *
      * @return array<string, mixed>|null the removed record

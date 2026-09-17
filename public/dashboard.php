@@ -20,6 +20,10 @@ require dirname(__DIR__) . '/app/bootstrap.php';
 $user = auth()->requireAuth();
 $storage = new UserStorage($user->id);
 
+try {
+    (new \App\Files\SourceFiles($storage, new UploadRepository($storage)))->removeWithoutReports((new \App\Files\GeneratedRepository($storage))->all());
+} catch (\Throwable) {
+}
 $uploads = (new UploadRepository($storage))->all();
 $generated = (new GeneratedFileManager($storage))->all();
 $profiles = (new BlueprintManager($storage))->count();

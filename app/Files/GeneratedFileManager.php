@@ -96,6 +96,12 @@ final class GeneratedFileManager
         }
         Logger::info('files', 'Generated PDF deleted', ['user_id' => $this->storage->userId(), 'id' => $id]);
         try {
+            // the uploaded source PDF goes with its last report
+            (new SourceFiles($this->storage, new UploadRepository($this->storage)))->removeWithoutReports($this->repo->all());
+        } catch (\Throwable $e) {
+            Logger::error('files', 'Source PDF could not be removed after a delete', ['user_id' => $this->storage->userId(), 'error' => $e->getMessage()]);
+        }
+        try {
             // the website profile follows its reports: gone with the last one
             (new \App\Profiles\BlueprintManager($this->storage))->reportDeleted($removed['blueprint_id'] ?? null, $this->repo->all());
         } catch (\Throwable $e) {
