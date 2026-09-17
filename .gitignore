@@ -1,0 +1,6 @@
+/config/users.csv
+/storage/**
+!/storage/**/
+!/storage/**/.gitkeep
+!/storage/.htaccess
+/tests/.tmp/

@@ -1,0 +1,94 @@
+{
+    "name": "Simple Light Report",
+    "description": "Clean white business report with a details table, line items and a summary",
+    "page_size": "A4",
+    "orientation": "portrait",
+    "margins": {
+        "top": 18,
+        "right": 18,
+        "bottom": 22,
+        "left": 18,
+        "footer": 9
+    },
+    "default_palette": "blue",
+    "fields": [
+        "title",
+        "subtitle",
+        "date",
+        "client_name",
+        "email",
+        "phone",
+        "website_url",
+        "address",
+        "amount",
+        "status",
+        "description",
+        "summary_text",
+        "detail_rows",
+        "custom_fields",
+        "line_items",
+        "total",
+        "footer_left",
+        "footer_right"
+    ],
+    "defaults": {
+        "footer_right": "Prepared with PDF Regenerator"
+    },
+    "palettes": {
+        "blue": {
+            "label": "Blue",
+            "primary": "#2563eb",
+            "primary_dark": "#1e40af",
+            "primary_bright": "#60a5fa",
+            "cover_start": "#172554",
+            "cover_mid": "#2563eb",
+            "cover_end": "#1e3a8a"
+        },
+        "red-default": {
+            "label": "Red",
+            "primary": "#e42b27",
+            "primary_dark": "#a91e1b",
+            "primary_bright": "#ff514c",
+            "cover_start": "#761412",
+            "cover_mid": "#e42b27",
+            "cover_end": "#7e1413"
+        },
+        "green": {
+            "label": "Green",
+            "primary": "#059669",
+            "primary_dark": "#065f46",
+            "primary_bright": "#34d399",
+            "cover_start": "#022c22",
+            "cover_mid": "#059669",
+            "cover_end": "#064e3b"
+        },
+        "purple": {
+            "label": "Purple",
+            "primary": "#7c3aed",
+            "primary_dark": "#5b21b6",
+            "primary_bright": "#a78bfa",
+            "cover_start": "#2e1065",
+            "cover_mid": "#7c3aed",
+            "cover_end": "#4c1d95"
+        },
+        "orange": {
+            "label": "Orange",
+            "primary": "#ea580c",
+            "primary_dark": "#9a3412",
+            "primary_bright": "#fb923c",
+            "cover_start": "#431407",
+            "cover_mid": "#ea580c",
+            "cover_end": "#7c2d12"
+        }
+    },
+    "logo_boxes": {
+        "brand": [
+            30,
+            11
+        ],
+        "visual": [
+            34,
+            26
+        ]
+    }
+}

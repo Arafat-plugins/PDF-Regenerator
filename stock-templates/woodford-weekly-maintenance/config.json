@@ -1,0 +1,264 @@
+{
+    "name": "Woodford Weekly Maintenance Report",
+    "description": "Premium dark weekly website maintenance report",
+    "page_size": "A4",
+    "orientation": "portrait",
+    "page_height": "fit",
+    "design_width_px": 980,
+    "source_profiles": [
+        "wp-maintenance-weekly"
+    ],
+    "fields": [
+        "report_title",
+        "report_kicker",
+        "report_subtitle",
+        "website_name",
+        "website_url",
+        "reporting_start",
+        "reporting_end",
+        "reporting_period",
+        "summary_text",
+        "uptime_percent",
+        "security_status",
+        "backup_status",
+        "maintenance_tasks",
+        "maintenance_tasks_count",
+        "total_sessions",
+        "organic_traffic",
+        "pagespeed_score",
+        "plugins_updated_count",
+        "backups_count",
+        "backup_note",
+        "unique_visitors",
+        "pages_per_session",
+        "traffic_sources",
+        "top_pages",
+        "response_time",
+        "fcp",
+        "lcp",
+        "tti",
+        "speed_index",
+        "cls",
+        "tbt",
+        "themes_updated_count",
+        "custom_tasks_count",
+        "wp_version",
+        "wp_core_status",
+        "plugin_updates",
+        "theme_updates",
+        "backups_available",
+        "last_backup_date",
+        "backup_frequency",
+        "vulnerability_monitoring_frequency",
+        "php_version",
+        "security_checks",
+        "site_health",
+        "site_check_date",
+        "site_check_summary",
+        "site_check_result",
+        "signature_name",
+        "signature_title",
+        "signature_company",
+        "footer_left",
+        "footer_right"
+    ],
+    "defaults": {
+        "report_title": "Weekly Website Maintenance Report",
+        "report_kicker": "Website Operations • Weekly Report",
+        "report_subtitle": "Security, Performance & Maintenance",
+        "summary_text": "Your website is in excellent hands. This week, we carried out comprehensive routine maintenance to ensure your site remains secure, fast, and fully functional. We proactively monitor and update your platform so you can focus on your business with total peace of mind.",
+        "backup_note": "Full backup created successfully",
+        "signature_name": "Arafat",
+        "signature_title": "Technical Maintenance Team",
+        "signature_company": "GoodTechies",
+        "footer_right": "goodtechies.com"
+    },
+    "palettes": {
+        "red-default": {
+            "label": "Red (original)",
+            "primary": "#e42b27",
+            "primary_dark": "#a91e1b",
+            "primary_bright": "#ff514c",
+            "cover_start": "#761412",
+            "cover_mid": "#e42b27",
+            "cover_end": "#7e1413"
+        },
+        "blue": {
+            "label": "Blue",
+            "primary": "#2563eb",
+            "primary_dark": "#1e40af",
+            "primary_bright": "#60a5fa",
+            "cover_start": "#172554",
+            "cover_mid": "#2563eb",
+            "cover_end": "#1e3a8a"
+        },
+        "green": {
+            "label": "Green",
+            "primary": "#059669",
+            "primary_dark": "#065f46",
+            "primary_bright": "#34d399",
+            "cover_start": "#022c22",
+            "cover_mid": "#059669",
+            "cover_end": "#064e3b"
+        },
+        "purple": {
+            "label": "Purple",
+            "primary": "#7c3aed",
+            "primary_dark": "#5b21b6",
+            "primary_bright": "#a78bfa",
+            "cover_start": "#2e1065",
+            "cover_mid": "#7c3aed",
+            "cover_end": "#4c1d95"
+        },
+        "orange": {
+            "label": "Orange",
+            "primary": "#ea580c",
+            "primary_dark": "#9a3412",
+            "primary_bright": "#fb923c",
+            "cover_start": "#431407",
+            "cover_mid": "#ea580c",
+            "cover_end": "#7c2d12"
+        }
+    },
+    "logo_boxes": {
+        "cover": [
+            61,
+            22
+        ]
+    },
+    "sections": {
+        "summary": [
+            "uptime_percent",
+            "backups_count",
+            "maintenance_tasks",
+            "security_checks"
+        ],
+        "glance": [
+            "total_sessions",
+            "organic_traffic",
+            "pagespeed_score",
+            "uptime_percent",
+            "plugins_updated_count",
+            "backups_count"
+        ],
+        "traffic": [
+            "total_sessions",
+            "unique_visitors",
+            "pages_per_session",
+            "organic_traffic",
+            "traffic_sources",
+            "top_pages"
+        ],
+        "performance": [
+            "pagespeed_score",
+            "response_time",
+            "fcp",
+            "lcp",
+            "tti",
+            "speed_index",
+            "cls",
+            "tbt"
+        ],
+        "updates": [
+            "backups_available",
+            "last_backup_date",
+            "wp_core_status",
+            "wp_version",
+            "plugins_updated_count",
+            "themes_updated_count",
+            "custom_tasks_count",
+            "plugin_updates",
+            "theme_updates"
+        ],
+        "security": [
+            "security_checks",
+            "site_health"
+        ],
+        "site_check": [
+            "site_check_date",
+            "site_check_summary",
+            "site_check_result"
+        ],
+        "closing": [
+            "security_checks",
+            "site_health",
+            "site_check_date",
+            "site_check_summary",
+            "site_check_result",
+            "custom_fields",
+            "signature_name"
+        ]
+    },
+    "card_groups": {
+        "sum": {
+            "class": "c3",
+            "per_row": 3,
+            "keys": [
+                "uptime_percent",
+                "security_status",
+                "backup_status"
+            ]
+        },
+        "glance": {
+            "class": "glance",
+            "per_row": 3,
+            "keys": [
+                "total_sessions",
+                "organic_traffic",
+                "pagespeed_score",
+                "uptime_percent",
+                "plugins_updated_count",
+                "backups_count"
+            ]
+        },
+        "traffic": {
+            "class": "c4",
+            "per_row": 4,
+            "keys": [
+                "total_sessions",
+                "unique_visitors",
+                "pages_per_session",
+                "organic_traffic"
+            ]
+        },
+        "pm": {
+            "class": "pm-card",
+            "stack": true,
+            "last_class": "last",
+            "keys": [
+                "response_time",
+                "fcp",
+                "lcp",
+                "tti"
+            ]
+        },
+        "perf": {
+            "class": "c3",
+            "per_row": 3,
+            "keys": [
+                "speed_index",
+                "cls",
+                "tbt"
+            ]
+        },
+        "upd": {
+            "class": "c3",
+            "per_row": 3,
+            "keys": [
+                "plugins_updated_count",
+                "themes_updated_count",
+                "custom_tasks_count"
+            ]
+        },
+        "bkv": {
+            "class": "kv-row",
+            "stack": true,
+            "first_class": "kv-first",
+            "keys": [
+                "backups_available",
+                "last_backup_date",
+                "backup_frequency"
+            ]
+        }
+    }
+}

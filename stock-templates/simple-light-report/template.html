@@ -1,0 +1,85 @@
+<!--
+  Simple Light Report — second stock template (Part D §7).
+  White A4 business report: brand + date, title, "Prepared for", Details table, optional
+  Line Items with total, Summary / Description, footer. Works with any data: blocks without
+  values are left out.
+-->
+<htmlpagefooter name="slFooter">
+    <table class="footer"><tr>
+        <td class="foot">{{ footer_left }}</td>
+        <td class="foot foot-right">{{ footer_right }}{{#footer_right}} · {{/footer_right}}Page {PAGENO} of {nbpg}</td>
+    </tr></table>
+</htmlpagefooter>
+<sethtmlpagefooter name="slFooter" value="on" />
+
+<div class="sheet">
+    <div class="accent-bar">&nbsp;</div>
+
+    <table class="hdr"><tr>
+        <td class="hdr-brand">
+            <table class="brand"><tr>
+                {{#logo_src}}<td class="brand-logo"><img src="{{ logo_src }}" alt="" style="width: {{ logo_brand_width }}; height: {{ logo_brand_height }};" /></td>{{/logo_src}}
+                <td class="brand-text">
+                    {{#brand_name}}<div class="brand-name">{{ brand_name }}</div>{{/brand_name}}
+                    {{#website_url}}<div class="brand-url">{{ website_url }}</div>{{/website_url}}
+                </td>
+            </tr></table>
+        </td>
+        <td class="hdr-date">{{ date }}</td>
+    </tr></table>
+
+    <div class="title">{{ title }}</div>
+    {{#subtitle}}<div class="subtitle">{{ subtitle }}</div>{{/subtitle}}
+    {{#client_name}}<div class="prepared">Prepared for: <b>{{ client_name }}</b></div>{{/client_name}}
+    <div class="title-rule">&nbsp;</div>
+
+    {{#detail_rows_count}}
+    <div class="h2">Details</div>
+    <table class="details-wrap"><tr>
+        <td class="details-col">
+            <table class="kv">
+                {{#detail_rows}}
+                <tr>
+                    <td class="kv-k r{{ @index }}">{{ label }}</td>
+                    <td class="kv-v r{{ @index }}">{{#is_status}}<span class="status">&nbsp;{{ value }}&nbsp;</span>{{/is_status}}{{^is_status}}{{ value }}{{/is_status}}</td>
+                </tr>
+                {{/detail_rows}}
+            </table>
+        </td>
+        <td class="gap-col">&nbsp;</td>
+        <td class="visual-col">{{#logo_src}}<img class="visual-logo" src="{{ logo_src }}" alt="" style="width: {{ logo_visual_width }}; height: {{ logo_visual_height }};" />{{/logo_src}}</td>
+    </tr></table>
+    {{/detail_rows_count}}
+
+    {{#line_items_count}}
+    <div class="h2">Line Items</div>
+    <table class="items">
+        <thead><tr>
+            <th class="items-name">Item</th><th class="num">Qty</th><th class="num">Price</th><th class="num">Total</th>
+        </tr></thead>
+        <tbody>
+        {{#line_items}}
+        <tr>
+            <td>{{ name }}</td><td class="num">{{ quantity }}</td><td class="num">{{ price }}</td><td class="num strong">{{ total }}</td>
+        </tr>
+        {{/line_items}}
+        {{#total}}
+        <tr><td class="sum" colspan="3">Total</td><td class="sum num">{{ total }}</td></tr>
+        {{/total}}
+        </tbody>
+    </table>
+    {{/line_items_count}}
+    {{^line_items_count}}{{#total}}
+    <table class="items total-only"><tr><td class="sum">Total</td><td class="sum num">{{ total }}</td></tr></table>
+    {{/total}}{{/line_items_count}}
+
+    {{#summary_text}}
+    <div class="h2-accent">Summary</div>
+    <div class="para">{{ summary_text }}</div>
+    {{/summary_text}}
+
+    {{#description}}
+    <div class="h2">Description</div>
+    <div class="para">{{ description }}</div>
+    {{/description}}
+</div>

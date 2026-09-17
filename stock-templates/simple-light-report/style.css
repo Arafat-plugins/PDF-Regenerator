@@ -1,0 +1,99 @@
+/*
+ * Simple Light Report — mPDF-safe CSS (no grid/flex/var()/rgba()).
+ * Only color placeholders ({{ theme_* }}) may appear in this file.
+ * Page margins come from config.json ("margins").
+ */
+
+body {
+    font-family: inter;
+    font-size: 9.5pt;
+    line-height: 1.5;
+    color: #334155;
+    background-color: #ffffff;
+}
+
+.accent-bar {
+    height: 1.2mm;
+    width: 30mm;
+    margin-bottom: 7mm;
+    font-size: 1pt;
+    line-height: 1pt;
+    background-color: {{ theme_primary }};
+}
+
+table.hdr { width: 100%; border-collapse: collapse; }
+td.hdr-brand { vertical-align: middle; }
+td.hdr-date { width: 45mm; text-align: right; vertical-align: middle; font-size: 8.5pt; color: #475569; }
+table.brand { border-collapse: collapse; }
+td.brand-logo { padding: 0 3mm 0 0; vertical-align: middle; }
+td.brand-text { vertical-align: middle; }
+.brand-name { font-family: intersemibold; font-size: 11pt; line-height: 1.2; color: #0f172a; }
+.brand-url { font-size: 7.5pt; color: #64748b; }
+
+.title {
+    margin-top: 16mm;
+    font-family: interextrabold;
+    font-size: 27pt;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: #0f172a;
+}
+.subtitle { margin-top: 2.4mm; font-family: intersemibold; font-size: 11pt; color: {{ theme_primary }}; }
+.prepared { margin-top: 3mm; font-size: 10pt; color: #334155; }
+.prepared b { color: #0f172a; }
+.title-rule {
+    margin-top: 7mm;
+    height: 0.3mm;
+    font-size: 1pt;
+    line-height: 1pt;
+    background-color: #e2e8f0;
+}
+
+.h2, .h2-accent {
+    margin-top: 9mm;
+    padding-bottom: 2mm;
+    font-family: intersemibold;
+    font-size: 11.5pt;
+    border-bottom: 0.25mm solid #e2e8f0;
+}
+.h2 { color: #0f172a; }
+.h2-accent { color: {{ theme_primary }}; }
+
+table.details-wrap { width: 100%; border-collapse: collapse; margin-top: 3mm; }
+td.details-col { vertical-align: top; }
+td.gap-col { width: 7mm; }
+td.visual-col {
+    width: 52mm;
+    height: 52mm;
+    text-align: center;
+    vertical-align: middle;
+    background-color: {{ theme_primary_light }};
+}
+
+table.kv { width: 100%; border-collapse: collapse; }
+td.kv-k { width: 38%; padding: 2.3mm 3mm 2.3mm 0; vertical-align: top; font-size: 9pt; color: #64748b; border-top: 0.25mm solid #eef2f7; }
+td.kv-v { padding: 2.3mm 0; vertical-align: top; font-size: 9pt; color: #0f172a; border-top: 0.25mm solid #eef2f7; }
+td.r1 { border-top: none; }
+.status { background-color: #dcfce7; color: #15803d; font-family: intersemibold; font-size: 8pt; }
+
+table.items { width: 100%; border-collapse: collapse; margin-top: 3mm; font-size: 9pt; }
+table.items th {
+    padding: 2.4mm 3mm;
+    text-align: left;
+    font-family: intersemibold;
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    color: {{ theme_primary_dark }};
+    background-color: {{ theme_primary_light }};
+}
+table.items td { padding: 2.4mm 3mm; color: #0f172a; border-bottom: 0.25mm solid #eef2f7; }
+table.items th.num, table.items td.num { text-align: right; }
+table.items td.strong { font-family: intersemibold; }
+table.items td.sum { font-family: intersemibold; font-size: 10pt; border-bottom: none; border-top: 0.5mm solid {{ theme_primary }}; }
+table.total-only { margin-top: 8mm; }
+
+.para { margin-top: 3mm; font-size: 9.5pt; line-height: 1.65; color: #475569; }
+
+table.footer { width: 100%; border-collapse: collapse; }
+td.foot { padding-top: 2.4mm; border-top: 0.25mm solid #e2e8f0; font-size: 7pt; color: #94a3b8; }
+td.foot-right { text-align: right; }

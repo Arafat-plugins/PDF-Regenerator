@@ -1,0 +1,91 @@
+{
+    "id": "wp-maintenance-weekly",
+    "name": "WordPress Weekly Maintenance Report (react-pdf)",
+    "fingerprint": { "all_of": ["Your Maintenance Report", "Everything you need to know about your site"], "any_of": ["Last plugin updates", "Last theme updates", "Full Site page and form checking", "Monitoring of vulnerabilities"] },
+    "sections": [
+        { "id": "cover",       "anchor": null },
+        { "id": "letter",      "anchor": "^Your Maintenance Report$" },
+        { "id": "overview",    "anchor": "^Overview$", "page_start": true },
+        { "id": "traffic",     "anchor": "^Traffic Overview$" },
+        { "id": "top_pages",   "anchor": "^Daily Distribution$" },
+        { "id": "uptime",      "anchor": "^Uptime$", "page_start": true },
+        { "id": "performance", "anchor": "^Performance$", "page_start": true },
+        { "id": "updates",     "anchor": "^Updates$", "page_start": true },
+        { "id": "security",    "anchor": "^Security$", "page_start": true },
+        { "id": "backups",     "anchor": "^Backups$", "page_start": true },
+        { "id": "site_check",  "anchor": "^Full Site page and form checking$", "page_start": true }
+    ],
+    "fields": [
+        { "section": "cover", "type": "regex", "pattern": "^([A-Z][a-z]+ \\d{2}, \\d{4}) - ([A-Z][a-z]+ \\d{2}, \\d{4})$", "groups": { "reporting_start": 1, "reporting_end": 2 }, "transform": ["date_iso"] },
+        { "section": "cover", "type": "line_after", "match": "^[A-Z][a-z]+ \\d{2}, \\d{4} - ", "key": "website_name" },
+        { "section": "cover", "type": "regex", "pattern": "^(https?://\\S+)$", "groups": { "website_url": 1 } },
+
+        { "section": "letter", "type": "regex", "pattern": "^Hi\\s*([^,]*),", "groups": { "client_name": 1 } },
+
+        { "section": "overview", "type": "cell_after_label", "label": "Organic Traffic", "key": "organic_traffic", "transform": ["int"] },
+        { "section": "overview", "type": "cell_after_label", "label": "Total Sessions", "key": "total_sessions", "transform": ["int"] },
+        { "section": "overview", "type": "cell_after_label", "label": "Status", "key": "uptime_status", "transform": ["yes_no_online"] },
+        { "section": "overview", "type": "cell_after_label", "label": "Uptime rate", "key": "uptime_percent", "transform": ["strip_trailing_zero_percent"] },
+        { "section": "overview", "type": "cell_after_label", "label": "Google PageSpeed", "key": "pagespeed_score", "transform": ["score_0_100"] },
+        { "section": "overview", "type": "cell_after_label", "label": "Response Time", "key": "response_time" },
+        { "section": "overview", "type": "cell_after_label", "label": "Number of plugins updated", "key": "plugins_updated_count", "transform": ["int"] },
+        { "section": "overview", "type": "cell_after_label", "label": "Number of themes updated", "key": "themes_updated_count", "transform": ["int"] },
+        { "section": "overview", "type": "cell_after_label", "label": "Number of backups", "key": "backups_count", "transform": ["int"] },
+        { "section": "overview", "type": "cell_after_label", "label": "Backup Frequency", "key": "backup_frequency", "transform": ["title_case"] },
+        { "section": "overview", "type": "cell_after_label", "label": "Number of tasks", "key": "custom_tasks_count", "transform": ["int"] },
+
+        { "section": "traffic", "type": "cell_above_label", "label": "Unique visitors", "key": "unique_visitors", "transform": ["int"] },
+        { "section": "traffic", "type": "cell_above_label", "label": "Page Views Per Session", "key": "pages_per_session", "transform": ["decimal1"] },
+
+        { "section": "performance", "type": "cell_after_label", "label": "First Contentful Paint (FCP)", "key": "fcp", "transform": ["seconds1"] },
+        { "section": "performance", "type": "cell_after_label", "label": "Largest Contentful Paint (LCP)", "key": "lcp", "transform": ["seconds1"] },
+        { "section": "performance", "type": "cell_after_label", "label": "Time to Interactive (TTI)", "key": "tti", "transform": ["seconds1"] },
+        { "section": "performance", "type": "cell_after_label", "label": "Speed Index", "key": "speed_index", "transform": ["seconds1"] },
+        { "section": "performance", "type": "cell_after_label", "label": "Cumulative Layout Shift (CLS)", "key": "cls", "transform": ["decimal3"] },
+        { "section": "performance", "type": "cell_after_label", "label": "Total Blocking Time (TBT)", "key": "tbt" },
+
+        { "section": "updates", "type": "contains", "text": "Your WordPress is up to date", "value_if_found": "Up to Date", "value_if_missing": "", "key": "wp_core_status" },
+
+        { "section": "security", "type": "cell_after_label", "label": "Monitoring of vulnerabilities", "key": "vulnerability_monitoring_frequency", "transform": ["title_case"] },
+        { "section": "security", "type": "cell_after_label", "label": "WordPress version", "key": "wp_version" },
+        { "section": "security", "type": "cell_after_label", "label": "PHP version", "key": "php_version" },
+
+        { "section": "backups", "type": "cell_after_label", "label": "Number of backup available", "key": "backups_available", "transform": ["int"] },
+        { "section": "backups", "type": "cell_after_label", "label": "Last backup", "key": "last_backup_date", "transform": ["date_iso"] },
+        { "section": "backups", "type": "cell_after_label", "label": "Backup frequency", "key": "backup_frequency", "transform": ["title_case"] },
+        { "section": "uptime", "type": "cell_after_label", "label": "Uptime rate", "key": "uptime_percent", "transform": ["strip_trailing_zero_percent"] },
+        { "section": "uptime", "type": "cell_after_label", "label": "Status", "key": "uptime_status", "transform": ["yes_no_online"] },
+
+        { "section": "site_check", "type": "regex", "pattern": "^([A-Z][a-z]+ \\d{2}, \\d{4})$", "groups": { "site_check_date": 1 }, "transform": ["date_iso"] },
+        { "section": "site_check", "type": "line_after", "match": "^[A-Z][a-z]+ \\d{2}, \\d{4}$", "key": "site_check_summary" },
+        { "section": "site_check", "type": "last_line", "key": "site_check_result", "transform": ["sentence"] }
+    ],
+    "lists": [
+        { "key": "maintenance_tasks", "section": "letter", "type": "bullets", "column": "label" },
+        { "key": "traffic_sources", "section": "traffic", "type": "values_above_labels",
+          "items": [ { "label": "Organic Traffic" }, { "label": "Direct Traffic" }, { "label": "Other Sources" } ],
+          "columns": ["percent", "label"], "transform": ["traffic_label_short", "decimal2_percent", "sort_desc:percent"] },
+        { "key": "top_pages", "section": "top_pages", "type": "row_regex", "pattern": "^(/\\S*)\\s+(\\d+)$", "columns": ["path", "views"], "transform": ["sort_desc:views", "limit:max_top_pages"] },
+        { "key": "plugin_updates", "section": "updates", "type": "row_regex", "after": "^Last plugin updates$", "before": "^Last theme updates$",
+          "pattern": "^(.+?)\\s+(\\d[\\w.\\-]*)\\s+(\\d[\\w.\\-]*)\\s+([A-Z][a-z]+ \\d{2}, \\d{4})$",
+          "columns": ["name", "version_from", "version_to", "date"] },
+        { "key": "theme_updates", "section": "updates", "type": "row_regex", "optional": true, "after": "^Last theme updates$", "before": "^Last plugin updates$",
+          "pattern": "^(.+?)\\s+(\\d[\\w.\\-]*)\\s+(\\d[\\w.\\-]*)\\s+([A-Z][a-z]+ \\d{2}, \\d{4})$",
+          "columns": ["name", "version_from", "version_to", "date"] },
+        { "key": "security_checks", "section": "security", "type": "fixed_rows", "columns": ["label", "status"],
+          "rows": [
+            { "label": "Monitoring of vulnerabilities", "display_label": "Vulnerability Monitoring", "from_key": "vulnerability_monitoring_frequency" },
+            { "label": "Uptime monitoring",     "display_label": "Uptime Monitoring",     "icon_default": "Active" },
+            { "label": "SSL monitoring",        "display_label": "SSL Monitoring",        "icon_default": "Active" },
+            { "label": "Domain monitoring",     "display_label": "Domain Monitoring",     "icon_default": "Active" },
+            { "label": "PHP Issues monitoring", "display_label": "PHP Issues Monitoring", "icon_default": "Active" }
+          ] },
+        { "key": "site_health", "section": "security", "type": "fixed_rows", "columns": ["label", "value"],
+          "rows": [
+            { "label": "WordPress version",         "display_label": "WordPress Version",     "from_key": "wp_version" },
+            { "label": "Website indexability",      "display_label": "Website Indexability",  "icon_default": "OK" },
+            { "label": "PHP version",               "display_label": "PHP Version",           "from_key": "php_version" },
+            { "label": "Safety of the PHP version", "display_label": "PHP Version Safety",    "icon_default": "OK" }
+          ] }
+    ]
+}

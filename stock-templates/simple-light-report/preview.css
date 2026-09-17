@@ -1,0 +1,15 @@
+/* Browser-only layer for the live preview. */
+html { background: #e9edf3; }
+body { margin: 0; padding: 14px 0 2px; background: #e9edf3; }
+htmlpagefooter, htmlpageheader { display: none !important; }
+.sheet {
+    box-sizing: border-box;
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto 14px auto;
+    padding: 18mm 18mm 22mm 18mm;
+    background: #ffffff;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, .14);
+}
+.status { padding: 0.4mm 1.6mm; border-radius: 1mm; }
+td.visual-col { border-radius: 2mm; }

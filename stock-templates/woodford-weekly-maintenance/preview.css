@@ -1,0 +1,49 @@
+/*
+ * Browser-only layer for the live preview (appended after style.css in the "preview" context).
+ * mPDF paints page backgrounds through named @page rules and stretches images with
+ * background-image-resize — the browser needs plain equivalents. Colors: palette keys only.
+ */
+html { background: #3b3f46; }
+body { margin: 0; padding: 14px 0 2px; background: #3b3f46; }
+htmlpagefooter, htmlpageheader { display: none !important; }
+
+.cover, .page {
+    box-sizing: border-box;
+    width: 210mm;
+    margin: 0 auto 14px auto;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, .35);
+}
+
+.cover {
+    height: 167.15mm;
+    overflow: hidden;
+    background-color: {{ theme_cover_mid }};
+    background-image: url(assets/cover-overlay.png), linear-gradient(135deg, {{ theme_cover_start }} 0%, {{ theme_cover_mid }} 53%, {{ theme_cover_end }} 100%);
+    background-size: 100% 100%, 100% 100%;
+}
+
+.page {
+    position: relative;
+    min-height: 0;                    /* page_height: fit — each page is as tall as its content */
+    padding: 14mm 16mm 23mm 16mm;     /* same margins as @page inner (+ fit slack) */
+    background: #111113;
+    overflow: hidden;
+    display: flow-root;
+}
+
+/* the PDF footer, repeated on every inner page (see TemplateRenderer::previewFooters) */
+.pv-footer { position: absolute; left: 16mm; right: 16mm; bottom: 8mm; }
+
+.cover-meta, td.meta-icon-cell, td.pill { background-size: 100% 100%; }
+/* status pills: the browser draws them with a real border (pixel-snapped, so the bottom edge
+   never looks thinner at small preview zoom); the PDF keeps the SVG backgrounds */
+table.pill-wrap { border-collapse: separate; border-spacing: 0; }
+td.pill {
+    background: {{ theme_success_fill }} !important;
+    border: 0.6mm solid {{ theme_success_bright }};
+    border-radius: 999px;
+    box-sizing: border-box;
+    padding-top: 0.2mm;
+}
+.clear { clear: both; }
+img { max-width: none; }

@@ -1,0 +1,2 @@
+user_id,username,password_hash,name,email,status
+USR_8f92ac12,admin,$2y$12$dZ.dt0KxK/CVJzromjvKO.1SDHlrSp3A.yiYh6L8nIz8lzU0ewnhy,Administrator,admin@example.com,active

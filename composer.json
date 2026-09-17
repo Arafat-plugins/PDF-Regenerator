@@ -1,0 +1,36 @@
+{
+    "name": "pdf-regenerator/app",
+    "description": "Standalone PHP PDF Regenerator — extract data from an uploaded PDF and regenerate it with a premium template.",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.1",
+        "ext-ctype": "*",
+        "ext-json": "*",
+        "ext-session": "*",
+        "smalot/pdfparser": "^2.11",
+        "mpdf/mpdf": "^8.2"
+    },
+    "suggest": {
+        "ext-mbstring": "Required by mPDF",
+        "ext-gd": "Required for the PageSpeed ring and image validation",
+        "ext-fileinfo": "Required for MIME type validation of uploads",
+        "ext-intl": "Unicode NFC normalization of extracted text",
+        "ext-zlib": "Required by mPDF"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "app/Helpers/functions.php"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "php tests/run-tests.php"
+    }
+}

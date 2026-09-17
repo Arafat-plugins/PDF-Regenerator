@@ -1,0 +1,50 @@
+# PDF Regenerator — project root.
+#
+# Best setup: the web server's document root (or a symlink) points at public/ and this file is never read.
+# Fallback for shared hosting (the whole project uploaded into e.g. public_html/pdf-tool/):
+# every request is served from public/, so app/, config/, storage/ … can never be opened by URL.
+
+Options -Indexes
+DirectoryIndex index.php
+
+# Hidden files (.htaccess, .user.ini …) are never served.
+<FilesMatch "^\.">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # SSL certificate checks (cPanel AutoSSL / Let's Encrypt) must reach .well-known/
+    RewriteRule ^\.well-known/ - [L]
+    # already inside public/ → serve it
+    RewriteRule ^public(/|$) - [L]
+    # anything else → the same path inside public/ (config/users.csv becomes public/config/users.csv → 404)
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Without mod_rewrite nothing outside public/ may be served.
+<IfModule !mod_rewrite.c>
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</IfModule>
+
+# PHP limits when PHP runs as an Apache module (FPM / CGI / LiteSpeed hosts read .user.ini instead).
+<IfModule php_module>
+    php_value upload_max_filesize 12M
+    php_value post_max_size 13M
+    php_value memory_limit 256M
+    php_value max_execution_time 120
+</IfModule>
+<IfModule mod_php7.c>
+    php_value upload_max_filesize 12M
+    php_value post_max_size 13M
+    php_value memory_limit 256M
+    php_value max_execution_time 120
+</IfModule>
