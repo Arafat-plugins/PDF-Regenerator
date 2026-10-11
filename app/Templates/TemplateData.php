@@ -80,7 +80,48 @@ final class TemplateData
             $view[$key] = $out;
         }
 
+        // Security & Website Health: report wording per check, a one-line description under each
+        $checks = [
+            'Vulnerability Monitoring' => ['Vulnerability Monitoring', 'Security risk checks'],
+            'Uptime Monitoring' => ['Uptime Monitoring', 'Website availability'],
+            'SSL Monitoring' => ['SSL Certificate', 'HTTPS certificate monitoring'],
+            'Domain Monitoring' => ['Domain Monitoring', 'Domain status checks'],
+            'PHP Issues Monitoring' => ['PHP Error Monitoring', 'Server-side PHP issues'],
+        ];
+        foreach (($view['security_checks'] ?? []) as $i => $row) {
+            if (!is_array($row)) {
+                continue;
+            }
+            $label = (string) ($row['label'] ?? '');
+            $status = (string) ($row['status'] ?? '');
+            [$label, $sub] = $checks[$label] ?? [$label, ''];
+            $view['security_checks'][$i] = array_merge($row, ['label' => $label, 'status' => $status, 'sub' => $sub]);
+        }
+        $health = [
+            'WordPress Version' => ['WordPress Version', 'Installed core version', []],
+            'Website Indexability' => ['Search Engine Visibility', 'Indexing settings check', ['OK' => 'Enabled']],
+            'PHP Version' => ['PHP Version', 'Server environment', []],
+            'PHP Version Safety' => ['PHP Compatibility', 'Runtime support status', ['OK' => 'Compatible']],
+        ];
+        foreach (($view['site_health'] ?? []) as $i => $row) {
+            if (!is_array($row)) {
+                continue;
+            }
+            $label = (string) ($row['label'] ?? '');
+            [$name, $sub, $values] = $health[$label] ?? [$label, '', []];
+            $value = (string) ($row['value'] ?? '');
+            $view['site_health'][$i]['label'] = $name;
+            $view['site_health'][$i]['sub'] = $sub;
+            $view['site_health'][$i]['value'] = $values[strtoupper($value)] ?? $value;
+        }
+
         // Render-only derived keys
+        // traffic source names read in full on the report ("Organic" → "Organic Search")
+        foreach (($view['traffic_sources'] ?? []) as $i => $row) {
+            if (is_array($row) && isset($row['label']) && is_string($row['label'])) {
+                $view['traffic_sources'][$i]['label'] = ['Organic' => 'Organic Search', 'Other' => 'Other Sources'][$row['label']] ?? $row['label'];
+            }
+        }
         $tasks = $view['maintenance_tasks'] ?? [];
         $half = (int) ceil(count($tasks) / 2);
         $view['maintenance_tasks_col1'] = array_slice($tasks, 0, $half);
@@ -91,6 +132,32 @@ final class TemplateData
         $view['uptime_color'] = self::statusColor((string) ($view['uptime_percent'] ?? ''), static fn (string $v): bool => (bool) preg_match('/^100(\.0+)?\s*%$/', $v), false);
         $view['security_status_color'] = self::statusColor((string) ($view['security_status'] ?? ''), static fn (string $v): bool => strcasecmp($v, 'Protected') === 0, false);
         $view['backup_status_color'] = self::statusColor((string) ($view['backup_status'] ?? ''), static fn (string $v): bool => strcasecmp($v, 'Created') === 0, strcasecmp((string) ($view['backup_status'] ?? ''), 'Not Created') === 0);
+        // summary card wording: stored values stay Protected / Created, the cards read like a status
+        $security = (string) ($view['security_status'] ?? '');
+        $view['security_status_label'] = strcasecmp($security, 'Protected') === 0 ? 'No Issues' : $security;
+        $view['security_status_note'] = $security === '' ? '' : (strcasecmp($security, 'Protected') === 0 ? 'Checks completed' : 'Review recommended');
+        $backup = (string) ($view['backup_status'] ?? '');
+        $view['backup_status_label'] = strcasecmp($backup, 'Created') === 0 ? 'Available' : (strcasecmp($backup, 'Not Created') === 0 ? 'Not Available' : $backup);
+        $view['backup_status_note'] = $backup === '' ? '' : (strcasecmp($backup, 'Created') === 0 ? 'Latest backup confirmed' : 'No backup this period');
+
+        // Backup & Updates cards: a headline and a sentence per status
+        $view['backup_headline'] = match (true) {
+            strcasecmp($backup, 'Created') === 0 => 'Backup Successful',
+            strcasecmp($backup, 'Not Created') === 0 => 'No Backup Created',
+            default => $backup !== '' ? $backup : 'Not Confirmed',
+        };
+        $view['backup_text'] = match (true) {
+            strcasecmp($backup, 'Created') === 0 => 'A recent backup is available to help restore the website if needed.',
+            strcasecmp($backup, 'Not Created') === 0 => 'No backup was created during this reporting period.',
+            default => 'The backup status was not confirmed for this reporting period.',
+        };
+        $core = (string) ($view['wp_core_status'] ?? '');
+        $view['core_headline'] = $core !== '' ? $core : 'Not Confirmed';
+        $view['core_text'] = match (true) {
+            strcasecmp($core, 'Up to Date') === 0 => 'Your WordPress core software is running the latest installed version, helping maintain security and stability.',
+            strcasecmp($core, 'Update Available') === 0 => 'A newer WordPress core version is available and should be installed to keep the website secure and stable.',
+            default => 'The WordPress core status was not confirmed for this reporting period.',
+        };
 
         $custom = [];
         foreach ($view as $key => $value) {
