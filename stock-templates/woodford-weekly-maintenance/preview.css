@@ -18,7 +18,7 @@ htmlpagefooter, htmlpageheader { display: none !important; }
     height: 167.15mm;
     overflow: hidden;
     background-color: {{ theme_cover_mid }};
-    background-image: url(assets/cover-overlay.png), linear-gradient(135deg, {{ theme_cover_start }} 0%, {{ theme_cover_mid }} 53%, {{ theme_cover_end }} 100%);
+    background-image: url(assets/cover-overlay.png), linear-gradient(135deg, {{ theme_cover_start }} 0%, {{ theme_cover_mid }} 30%, {{ theme_cover_mid }} 72%, {{ theme_cover_end }} 100%);
     background-size: 100% 100%, 100% 100%;
 }
 
@@ -47,3 +47,4 @@ td.pill {
 }
 .clear { clear: both; }
 img { max-width: none; }
+.cover-logo { vertical-align: top; }

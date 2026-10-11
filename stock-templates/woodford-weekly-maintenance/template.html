@@ -6,8 +6,8 @@
 -->
 <htmlpagefooter name="wfFooter">
 <table class="footer"><tr>
-<td class="foot">{{ footer_left }}</td>
-<td class="foot foot-right">{{ footer_right }} &nbsp;·&nbsp; Page {PAGENO} of {nbpg}</td>
+<td class="foot foot-left">{{#footer_right}}This Website is being maintained by <span class="foot-brand">{{ footer_right }}</span>{{/footer_right}}</td>
+<td class="foot foot-right">Page {PAGENO} of {nbpg}</td>
 </tr></table>
 </htmlpagefooter>
 
@@ -15,8 +15,7 @@
 <div class="cover">
     <div class="cover-bar">&nbsp;</div>
     <div class="cover-body">
-        {{#logo_src}}<img class="cover-logo" src="{{ logo_src }}" alt="" style="width: {{ logo_cover_width }}; height: {{ logo_cover_height }};" />{{/logo_src}}
-        <div class="cover-kicker">{{ report_kicker }}</div>
+        {{#logo_src}}<div class="cover-logo-box" style="width: {{ logo_cover_width }};"><img class="cover-logo" src="{{ logo_src }}" alt="" style="width: {{ logo_cover_width }}; height: {{ logo_cover_height }};" /></div>{{/logo_src}}
         <div class="cover-title">{{ report_title }}</div>
         <div class="cover-subtitle">{{ report_subtitle }}</div>
 
@@ -52,51 +51,56 @@
     <p class="lead">{{ summary_text }}</p>
 
     {{#brk_sum_uptime_percent}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_sum_uptime_percent}}
-    {{#card_sum_uptime_percent}}<div class="card {{ card_sum_uptime_percent }}">
+    {{#card_sum_uptime_percent}}<div class="card card-sum {{ card_sum_uptime_percent }}">
         <div class="card-title">Website Uptime</div>
         <div class="card-value" style="color: {{ uptime_color }};">{{ uptime_percent }}</div>
+        <div class="card-note">Available</div>
     </div>{{/card_sum_uptime_percent}}
     {{#brk_sum_security_status}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_sum_security_status}}
-    {{#card_sum_security_status}}<div class="card {{ card_sum_security_status }}">
-        <div class="card-title">Website Security</div>
-        <div class="card-value md" style="color: {{ security_status_color }};">{{ security_status }}</div>
+    {{#card_sum_security_status}}<div class="card card-sum {{ card_sum_security_status }}">
+        <div class="card-title">Security Status</div>
+        <div class="card-value md" style="color: {{ security_status_color }};">{{ security_status_label }}</div>
+        <div class="card-note">{{ security_status_note }}</div>
     </div>{{/card_sum_security_status}}
     {{#brk_sum_backup_status}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_sum_backup_status}}
-    {{#card_sum_backup_status}}<div class="card {{ card_sum_backup_status }}">
-        <div class="card-title">Website Backup</div>
-        <div class="card-value md" style="color: {{ backup_status_color }};">{{ backup_status }}</div>
+    {{#card_sum_backup_status}}<div class="card card-sum {{ card_sum_backup_status }}">
+        <div class="card-title">Backup Status</div>
+        <div class="card-value md" style="color: {{ backup_status_color }};">{{ backup_status_label }}</div>
+        <div class="card-note">{{ backup_status_note }}</div>
     </div>{{/card_sum_backup_status}}
     <div class="clear"></div>
 
     <div class="featured">
         <div class="fm-left">
-            <table class="accent"><tr>
-                <td class="accent-line"><svg xmlns="http://www.w3.org/2000/svg" width="4.6mm" height="1.2mm" viewBox="0 0 46 12"><rect x="0" y="5" width="46" height="2.2" rx="1.1" ry="1.1" fill="{{ theme_primary }}"/></svg></td>
-                <td class="accent-text">Weekly delivery log</td>
-            </tr></table>
-            <div class="fm-title">This Week's Completed Maintenance</div>
+            <div class="fm-title">Maintenance Tasks Completed</div>
+            <div class="fm-desc">Routine maintenance activities completed during this reporting period.</div>
         </div>
-        {{#maintenance_tasks_count}}<div class="fm-pill">{{ maintenance_tasks_count }} Checks Completed</div>{{/maintenance_tasks_count}}
+        <div class="fm-pill">10 of 10</div>
         <div class="clear"></div>
 
         <table class="tasks"><tr>
             <td class="tasks-col">
+                <div class="tl-head">WordPress Updates</div>
                 <table class="tl">
-                    {{#maintenance_tasks_col1}}
-                    <tr><td class="tl-icon r{{ @index }}"><img src="assets/check.svg" width="4.2mm" height="4.2mm" alt="" /></td><td class="tl-text r{{ @index }}">{{ label }}</td></tr>
-                    {{/maintenance_tasks_col1}}
+                    <tr><td class="tl-icon r1"><img src="assets/check.svg" width="4.2mm" height="4.2mm" alt="" /></td><td class="tl-text r1">WordPress core updates</td></tr>
+                    <tr><td class="tl-icon r2"><img src="assets/check.svg" width="4.2mm" height="4.2mm" alt="" /></td><td class="tl-text r2">Theme updates</td></tr>
+                    <tr><td class="tl-icon r3"><img src="assets/check.svg" width="4.2mm" height="4.2mm" alt="" /></td><td class="tl-text r3">Plugin updates</td></tr>
+                    <tr><td class="tl-icon r4"><img src="assets/check.svg" width="4.2mm" height="4.2mm" alt="" /></td><td class="tl-text r4">Compatibility checks</td></tr>
+                    <tr><td class="tl-icon r5"><img src="assets/check.svg" width="4.2mm" height="4.2mm" alt="" /></td><td class="tl-text r5">Website backups</td></tr>
                 </table>
             </td>
             <td class="tasks-gap"></td>
             <td class="tasks-col">
+                <div class="tl-head">Security &amp; Functionality</div>
                 <table class="tl">
-                    {{#maintenance_tasks_col2}}
-                    <tr><td class="tl-icon r{{ @index }}"><img src="assets/check.svg" width="4.2mm" height="4.2mm" alt="" /></td><td class="tl-text r{{ @index }}">{{ label }}</td></tr>
-                    {{/maintenance_tasks_col2}}
+                    <tr><td class="tl-icon r1"><img src="assets/check.svg" width="4.2mm" height="4.2mm" alt="" /></td><td class="tl-text r1">Security and malware scans</td></tr>
+                    <tr><td class="tl-icon r2"><img src="assets/check.svg" width="4.2mm" height="4.2mm" alt="" /></td><td class="tl-text r2">Uptime monitoring review</td></tr>
+                    <tr><td class="tl-icon r3"><img src="assets/check.svg" width="4.2mm" height="4.2mm" alt="" /></td><td class="tl-text r3">Page and contact form testing</td></tr>
+                    <tr><td class="tl-icon r4"><img src="assets/check.svg" width="4.2mm" height="4.2mm" alt="" /></td><td class="tl-text r4">Website error checks</td></tr>
+                    <tr><td class="tl-icon r5"><img src="assets/check.svg" width="4.2mm" height="4.2mm" alt="" /></td><td class="tl-text r5">Broken link and page checks</td></tr>
                 </table>
             </td>
         </tr></table>
-        {{^maintenance_tasks}}<div class="tl-text">No maintenance items were listed for this period.</div>{{/maintenance_tasks}}
     </div>
 </div>
 {{/section_summary}}
@@ -106,48 +110,52 @@
 <div class="page">
     <table class="sh"><tr>
         <td class="sh-bar"><svg xmlns="http://www.w3.org/2000/svg" width="1.15mm" height="6mm" viewBox="0 0 12 60"><defs><linearGradient id="bar3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{{ theme_primary_bright }}"/><stop offset="1" stop-color="{{ theme_primary_dark }}"/></linearGradient></defs><rect x="0" y="0" width="12" height="60" rx="6" ry="6" fill="url(#bar3)"/></svg></td>
-        <td class="sh-text">Website At a Glance</td>
+        <td class="sh-text">Website at a Glance</td>
     </tr></table>
 
-    <p class="intro">The key website, performance, traffic, update and recovery indicators from this reporting period.</p>
+    <p class="intro">Key website traffic, performance, availability, and maintenance metrics for this reporting period.</p>
 
-    {{#brk_glance_total_sessions}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_glance_total_sessions}}
-    {{#card_glance_total_sessions}}<div class="card flat {{ card_glance_total_sessions }}">
-        <div class="g-label">Total Traffic</div>
-        <div class="g-value" style="color: #f8fafc;">{{ total_sessions }}</div>
-        <div class="g-note"><span class="dot" style="color: #f8fafc;">●</span>&nbsp; Sessions this period</div>
-    </div>{{/card_glance_total_sessions}}
-    {{#brk_glance_organic_traffic}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_glance_organic_traffic}}
-    {{#card_glance_organic_traffic}}<div class="card flat {{ card_glance_organic_traffic }}">
-        <div class="g-label">Organic Traffic</div>
-        <div class="g-value" style="color: {{ theme_success }};">{{ organic_traffic }}</div>
-        <div class="g-note"><span class="dot" style="color: {{ theme_success }};">●</span>&nbsp; From organic search</div>
-    </div>{{/card_glance_organic_traffic}}
-    {{#brk_glance_pagespeed_score}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_glance_pagespeed_score}}
-    {{#card_glance_pagespeed_score}}<div class="card flat {{ card_glance_pagespeed_score }}">
-        <div class="g-label">PageSpeed</div>
-        <div class="g-value" style="color: {{ pagespeed_color }};">{{ pagespeed_score }} <span class="g-small">/ 100</span></div>
-        <div class="g-note"><span class="dot" style="color: {{ pagespeed_color }};">●</span>&nbsp; Performance score</div>
-    </div>{{/card_glance_pagespeed_score}}
-    {{#brk_glance_uptime_percent}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_glance_uptime_percent}}
-    {{#card_glance_uptime_percent}}<div class="card flat {{ card_glance_uptime_percent }}">
-        <div class="g-label">Uptime</div>
-        <div class="g-value" style="color: {{ uptime_color }};">{{ uptime_percent }}</div>
-        <div class="g-note"><span class="dot" style="color: {{ uptime_color }};">●</span>&nbsp; {{ uptime_note }}</div>
-    </div>{{/card_glance_uptime_percent}}
-    {{#brk_glance_plugins_updated_count}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_glance_plugins_updated_count}}
-    {{#card_glance_plugins_updated_count}}<div class="card flat {{ card_glance_plugins_updated_count }}">
-        <div class="g-label">Updates Applied</div>
-        <div class="g-value" style="color: {{ theme_primary }};">{{ plugins_updated_count }} <span class="g-small">Plugins</span></div>
-        <div class="g-note"><span class="dot" style="color: {{ theme_primary }};">●</span>&nbsp; Successfully updated</div>
-    </div>{{/card_glance_plugins_updated_count}}
-    {{#brk_glance_backups_count}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_glance_backups_count}}
-    {{#card_glance_backups_count}}<div class="card flat {{ card_glance_backups_count }}">
-        <div class="g-label">Backups</div>
-        <div class="g-value" style="color: {{ backup_status_color }};">{{ backups_count }} <span class="g-small">Created</span></div>
-        <div class="g-note"><span class="dot" style="color: {{ backup_status_color }};">●</span>&nbsp; {{ backup_note }}</div>
-    </div>{{/card_glance_backups_count}}
-    <div class="clear"></div>
+    {{#section_glancetp}}<div class="g-group">Traffic &amp; Performance</div>
+    {{#brk_glancetp_total_sessions}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_glancetp_total_sessions}}
+    {{#card_glancetp_total_sessions}}<div class="card flat {{ card_glancetp_total_sessions }}">
+        <div class="g-label">Total Sessions</div>
+        <div class="g-value"><span style="color: #f8fafc;">{{ total_sessions }}</span></div>
+        <div class="g-sub">All traffic sources</div>
+    </div>{{/card_glancetp_total_sessions}}
+    {{#brk_glancetp_organic_traffic}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_glancetp_organic_traffic}}
+    {{#card_glancetp_organic_traffic}}<div class="card flat {{ card_glancetp_organic_traffic }}">
+        <div class="g-label">Organic Sessions</div>
+        <div class="g-value"><span style="color: {{ theme_success }};">{{ organic_traffic }}</span></div>
+        <div class="g-sub">From organic search</div>
+    </div>{{/card_glancetp_organic_traffic}}
+    {{#brk_glancetp_pagespeed_score}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_glancetp_pagespeed_score}}
+    {{#card_glancetp_pagespeed_score}}<div class="card flat {{ card_glancetp_pagespeed_score }}">
+        <div class="g-label">PageSpeed Score</div>
+        <div class="g-value"><span style="color: {{ pagespeed_color }};">{{ pagespeed_score }}</span> <span class="g-small">/ 100</span></div>
+        <div class="g-sub">Performance assessment</div>
+    </div>{{/card_glancetp_pagespeed_score}}
+    <div class="clear"></div>{{/section_glancetp}}
+
+    {{#section_glancear}}<div class="g-group g-group-next">Availability &amp; Reliability</div>
+    {{#brk_glancear_uptime_percent}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_glancear_uptime_percent}}
+    {{#card_glancear_uptime_percent}}<div class="card flat {{ card_glancear_uptime_percent }}">
+        <div class="g-label">Website Uptime</div>
+        <div class="g-value"><span style="color: {{ uptime_color }};">{{ uptime_percent }}</span></div>
+        <div class="g-sub">During reporting period</div>
+    </div>{{/card_glancear_uptime_percent}}
+    {{#brk_glancear_plugins_updated_count}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_glancear_plugins_updated_count}}
+    {{#card_glancear_plugins_updated_count}}<div class="card flat {{ card_glancear_plugins_updated_count }}">
+        <div class="g-label">Plugin Updates</div>
+        <div class="g-value"><span style="color: #f8fafc;">{{ plugins_updated_count }}</span></div>
+        <div class="g-sub">Successfully updated</div>
+    </div>{{/card_glancear_plugins_updated_count}}
+    {{#brk_glancear_backups_count}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_glancear_backups_count}}
+    {{#card_glancear_backups_count}}<div class="card flat {{ card_glancear_backups_count }}">
+        <div class="g-label">Backups Created</div>
+        <div class="g-value"><span style="color: {{ backup_status_color }};">{{ backups_count }}</span></div>
+        <div class="g-sub">{{ backup_note }}</div>
+    </div>{{/card_glancear_backups_count}}
+    <div class="clear"></div>{{/section_glancear}}
 </div>
 {{/section_glance}}
 
@@ -159,32 +167,37 @@
         <td class="sh-text">Traffic &amp; Analytics</td>
     </tr></table>
 
-    <p class="intro">An overview of your website traffic and visitor behavior over the reporting period.</p>
+    <p class="intro">Website traffic, visitor engagement, acquisition channels, and most-viewed pages during this reporting period.</p>
 
     {{#brk_traffic_total_sessions}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_traffic_total_sessions}}
-    {{#card_traffic_total_sessions}}<div class="card {{ card_traffic_total_sessions }}">
-        <div class="card-title">Sessions</div>
+    {{#card_traffic_total_sessions}}<div class="card card-sum {{ card_traffic_total_sessions }}">
+        <div class="card-title">Total Sessions</div>
         <div class="card-value">{{ total_sessions }}</div>
+        <div class="card-note">Website visits</div>
     </div>{{/card_traffic_total_sessions}}
     {{#brk_traffic_unique_visitors}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_traffic_unique_visitors}}
-    {{#card_traffic_unique_visitors}}<div class="card {{ card_traffic_unique_visitors }}">
+    {{#card_traffic_unique_visitors}}<div class="card card-sum {{ card_traffic_unique_visitors }}">
         <div class="card-title">Unique Visitors</div>
         <div class="card-value">{{ unique_visitors }}</div>
+        <div class="card-note">Distinct visitors</div>
     </div>{{/card_traffic_unique_visitors}}
     {{#brk_traffic_pages_per_session}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_traffic_pages_per_session}}
-    {{#card_traffic_pages_per_session}}<div class="card {{ card_traffic_pages_per_session }}">
+    {{#card_traffic_pages_per_session}}<div class="card card-sum {{ card_traffic_pages_per_session }}">
         <div class="card-title">Pages / Session</div>
         <div class="card-value">{{ pages_per_session }}</div>
+        <div class="card-note">Average pages viewed</div>
     </div>{{/card_traffic_pages_per_session}}
     {{#brk_traffic_organic_traffic}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_traffic_organic_traffic}}
-    {{#card_traffic_organic_traffic}}<div class="card {{ card_traffic_organic_traffic }}">
-        <div class="card-title">Organic Traffic</div>
+    {{#card_traffic_organic_traffic}}<div class="card card-sum {{ card_traffic_organic_traffic }}">
+        <div class="card-title">Organic Sessions</div>
         <div class="card-value" style="color: {{ theme_success }};">{{ organic_traffic }}</div>
+        <div class="card-note">Search engine traffic</div>
     </div>{{/card_traffic_organic_traffic}}
     <div class="clear"></div>
 
     <div class="col-left">
-        <div class="h3 col-title">Traffic Sources</div>
+        <div class="h3 col-title has-sub">Traffic Sources</div>
+        <div class="col-sub">Share of website sessions</div>
         <div class="card flat tbl-card">
             <table class="dt">
                 {{#traffic_sources}}
@@ -195,16 +208,14 @@
         </div>
     </div>
     <div class="col-right">
-        <div class="h3 col-title">Top Performing Pages</div>
+        <div class="h3 col-title has-sub">Top Pages by Views</div>
+        <div class="col-sub">Most-viewed website pages</div>
         <div class="card flat tbl-card">
             <table class="dt">
-                <thead><tr><th>URL Path</th><th class="right">Views</th></tr></thead>
-                <tbody>
                 {{#top_pages}}
-                <tr><td class="path pr{{ @index }}">{{ path_display }}</td><td class="num-strong">{{ views }}</td></tr>
+                <tr><td class="path r{{ @index }}">{{ path_display }}</td><td class="num-strong r{{ @index }}">{{ views }}</td></tr>
                 {{/top_pages}}
-                {{^top_pages}}<tr><td class="empty" colspan="2">No page data in this report</td></tr>{{/top_pages}}
-                </tbody>
+                {{^top_pages}}<tr><td class="empty r1" colspan="2">No page data in this report</td></tr>{{/top_pages}}
             </table>
         </div>
     </div>
@@ -220,7 +231,7 @@
         <td class="sh-text">Performance &amp; Availability</td>
     </tr></table>
 
-    <p class="intro">Performance is key to having a fast and efficient website. A great first impression is crucial for online businesses, as speed plays a decisive role in shaping how your brand is perceived.</p>
+    <p class="intro">Website speed, loading experience, responsiveness, and visual stability during the performance assessment.</p>
 
     <div class="card ring-card">
         <div class="card-title">Google PageSpeed Score</div>
@@ -254,10 +265,12 @@
     <div class="clear"></div>
 
     <div class="metrics-note">
-        <span class="metrics-note-title">What these metrics mean:</span><br />
-        <span class="ink">FCP &amp; LCP:</span> Measure how quickly visible content appears on the screen.<br />
-        <span class="ink">TTI &amp; TBT:</span> Measure how soon the page becomes fully usable and responsive to user input.<br />
-        <span class="ink">CLS:</span> Tracks unexpected layout shifts to ensure a visually stable experience.
+        <span class="metrics-note-title">Understanding these metrics</span><br />
+        <span class="ink">FCP:</span> How quickly the first visible content appears.<br />
+        <span class="ink">LCP:</span> How quickly the main content becomes visible.<br />
+        <span class="ink">CLS:</span> Measures unexpected page layout movement.<br />
+        <span class="ink">TBT:</span> Measures how long the browser is blocked from responding during loading.<br />
+        <span class="ink">TTI:</span> An older metric measuring when the page becomes fully interactive.
     </div>
 </div>
 {{/section_performance}}
@@ -270,49 +283,31 @@
         <td class="sh-text">Backup &amp; Updates</td>
     </tr></table>
 
-    <div class="card half" style="border-top: 0.85mm solid {{ theme_success }};">
-        <div class="h3">Backup Status: <span style="color: {{ backup_status_color }};">{{ backup_status }}</span></div>
-        <div class="half-text">Regular backups provide a reliable recovery point if content is accidentally removed or the website needs to be restored.</div>
+    <div class="card half">
+        <div class="half-label"><span class="half-dot">●</span>&nbsp; Website Backups</div>
+        <div class="half-head" style="color: {{ backup_status_color }};">{{ backup_headline }}</div>
+        <div class="half-text">{{ backup_text }}</div>
         <table class="kv">
-            {{#card_bkv_backups_available}}<tr><td class="kv-label {{ card_bkv_backups_available }}">Backups Available</td><td class="kv-value {{ card_bkv_backups_available }}">{{ backups_available }}</td></tr>{{/card_bkv_backups_available}}
+            {{#card_bkv_backups_available}}<tr><td class="kv-label {{ card_bkv_backups_available }}">Available Backups</td><td class="kv-value kv-strong {{ card_bkv_backups_available }}">{{ backups_available }}</td></tr>{{/card_bkv_backups_available}}
             {{#card_bkv_last_backup_date}}<tr><td class="kv-label {{ card_bkv_last_backup_date }}">Last Backup</td><td class="kv-value {{ card_bkv_last_backup_date }}">{{ last_backup_date }}</td></tr>{{/card_bkv_last_backup_date}}
-            {{#card_bkv_backup_frequency}}<tr><td class="kv-label {{ card_bkv_backup_frequency }}">Frequency</td><td class="kv-value {{ card_bkv_backup_frequency }}">{{ backup_frequency }}</td></tr>{{/card_bkv_backup_frequency}}
+            {{#card_bkv_backup_frequency}}<tr><td class="kv-label {{ card_bkv_backup_frequency }}">Backup Schedule</td><td class="kv-value {{ card_bkv_backup_frequency }}">{{ backup_frequency }}</td></tr>{{/card_bkv_backup_frequency}}
         </table>
     </div>
     <div class="card half gap">
-        <div class="h3">WordPress Core</div>
-        <div class="half-text">Software updates are crucial for maintaining optimal performance and patching security vulnerabilities.</div>
-        <table class="kv"><tr>
-            <td class="core-label">Core Status:</td>
-            <td class="core-label" style="text-align: right;">
-                <table class="pill-wrap" align="right"><tr><td class="pill pill-l">{{#wp_core_status}}{{ wp_core_status }}{{/wp_core_status}}{{^wp_core_status}}Not confirmed{{/wp_core_status}}{{#wp_version}} (v{{ wp_version }}){{/wp_version}}</td></tr></table>
-            </td>
-        </tr></table>
+        <div class="half-label"><span class="half-dot">●</span>&nbsp; WordPress Core</div>
+        <div class="half-head">{{ core_headline }}</div>
+        <div class="half-text">{{ core_text }}</div>
+        <table class="kv">
+            {{#wp_version}}<tr><td class="kv-label kv-first">Installed Version</td><td class="kv-value kv-strong kv-first">{{ wp_version }}</td></tr>{{/wp_version}}
+            {{#wp_core_status}}<tr><td class="kv-label{{^wp_version}} kv-first{{/wp_version}}">Update Status</td><td class="kv-value{{^wp_version}} kv-first{{/wp_version}}"><table class="pill-wrap" align="right"><tr><td class="pill pill-m">{{ wp_core_status }}</td></tr></table></td></tr>{{/wp_core_status}}
+        </table>
     </div>
-    <div class="clear"></div>
-    <div class="row-gap">&nbsp;</div>
-
-    {{#brk_upd_plugins_updated_count}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_upd_plugins_updated_count}}
-    {{#card_upd_plugins_updated_count}}<div class="card {{ card_upd_plugins_updated_count }}">
-        <div class="card-title">Plugins Updated</div>
-        <div class="card-value">{{ plugins_updated_count }}</div>
-    </div>{{/card_upd_plugins_updated_count}}
-    {{#brk_upd_themes_updated_count}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_upd_themes_updated_count}}
-    {{#card_upd_themes_updated_count}}<div class="card {{ card_upd_themes_updated_count }}">
-        <div class="card-title">Themes Updated</div>
-        <div class="card-value">{{ themes_updated_count }}</div>
-    </div>{{/card_upd_themes_updated_count}}
-    {{#brk_upd_custom_tasks_count}}<div class="clear"></div><div class="row-gap">&nbsp;</div>{{/brk_upd_custom_tasks_count}}
-    {{#card_upd_custom_tasks_count}}<div class="card {{ card_upd_custom_tasks_count }}">
-        <div class="card-title">Custom Work Tasks</div>
-        <div class="card-value">{{ custom_tasks_count }}</div>
-    </div>{{/card_upd_custom_tasks_count}}
     <div class="clear"></div>
 
     <div class="h3 log-title">Plugin Update Log</div>
     <div class="card flat tbl-card log-card">
         <table class="dt">
-            <thead><tr><th style="width: 45%;">Plugin Name</th><th>Version Change</th><th>Date Applied</th></tr></thead>
+            <thead><tr><th style="width: 45%;">Plugin Name</th><th>Version Change</th><th>Date</th></tr></thead>
             <tbody>
             {{#plugin_updates}}
             <tr>
@@ -331,7 +326,7 @@
     <div class="h3 log-title">Theme Update Log</div>
     <div class="card flat tbl-card log-card">
         <table class="dt">
-            <thead><tr><th style="width: 45%;">Theme Name</th><th>Version Change</th><th>Date Applied</th></tr></thead>
+            <thead><tr><th style="width: 45%;">Theme Name</th><th>Version Change</th><th>Date</th></tr></thead>
             <tbody>
             {{#theme_updates}}
             <tr>
@@ -352,32 +347,30 @@
 <div class="page">
     <table class="sh"><tr>
         <td class="sh-bar"><svg xmlns="http://www.w3.org/2000/svg" width="1.15mm" height="6mm" viewBox="0 0 12 60"><defs><linearGradient id="bar7" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{{ theme_primary_bright }}"/><stop offset="1" stop-color="{{ theme_primary_dark }}"/></linearGradient></defs><rect x="0" y="0" width="12" height="60" rx="6" ry="6" fill="url(#bar7)"/></svg></td>
-        <td class="sh-text">Security &amp; Quality Assurance</td>
+        <td class="sh-text">Security &amp; Website Health</td>
     </tr></table>
 
     {{#section_security}}
     <div class="card sec">
-        <div class="h3" style="font-size: 11.66pt;">Security Monitoring</div>
-        <div class="sec-text">Active monitoring protects your website against unauthorized access.</div>
+        <div class="h3 sec-title">Security Monitoring</div>
+        <div class="sec-text">Ongoing monitoring of key website security and availability indicators.</div>
         <table class="sl">
             {{#security_checks}}
             <tr>
-                <td class="sl-icon sr{{ @index }}"><img src="assets/check.svg" width="4.2mm" height="4.2mm" alt="" /></td>
-                <td class="sl-label sr{{ @index }}">{{ label }}</td>
+                <td class="sl-label sr{{ @index }}">{{ label }}{{#sub}}<div class="sl-sub">{{ sub }}</div>{{/sub}}</td>
                 <td class="sl-right sr{{ @index }}"><table class="pill-wrap" align="right"><tr><td class="pill pill-m">{{ status }}</td></tr></table></td>
             </tr>
             {{/security_checks}}
         </table>
     </div>
     <div class="card sec gap">
-        <div class="h3" style="font-size: 11.66pt;">Site Health Status</div>
-        <div class="sec-text">Ensuring your server environment meets modern web standards.</div>
+        <div class="h3 sec-title">Website Health Checks</div>
+        <div class="sec-text">Key WordPress, server compatibility, and search visibility checks.</div>
         <table class="sl">
             {{#site_health}}
             <tr>
-                <td class="sl-icon sr{{ @index }}"><img src="assets/check.svg" width="4.2mm" height="4.2mm" alt="" /></td>
-                <td class="sl-label sr{{ @index }}">{{ label }}</td>
-                {{#is_status}}<td class="sl-right sr{{ @index }}"><table class="pill-wrap" align="right"><tr><td class="pill pill-s">{{ value }}</td></tr></table></td>{{/is_status}}
+                <td class="sl-label sr{{ @index }}">{{ label }}{{#sub}}<div class="sl-sub">{{ sub }}</div>{{/sub}}</td>
+                {{#is_status}}<td class="sl-right sr{{ @index }}"><table class="pill-wrap" align="right"><tr><td class="pill pill-m">{{ value }}</td></tr></table></td>{{/is_status}}
                 {{^is_status}}<td class="sl-value sr{{ @index }}">{{ value }}</td>{{/is_status}}
             </tr>
             {{/site_health}}
@@ -409,7 +402,7 @@
     <div class="signature">
         Best regards,
         <div class="sig-name">{{ signature_name }}</div>
-        <div class="sig-role">{{ signature_title }}{{#signature_company}} - {{ signature_company }}{{/signature_company}}</div>
+        <div class="sig-role">{{ signature_title }}</div>
     </div>
 </div>
 {{/section_closing}}

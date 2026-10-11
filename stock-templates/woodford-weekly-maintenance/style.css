@@ -13,7 +13,7 @@
 @page cover {
     margin: 0;
     background-color: {{ theme_cover_mid }};
-    background: linear-gradient(135deg, {{ theme_cover_start }} 0%, {{ theme_cover_mid }} 53%, {{ theme_cover_end }} 100%);
+    background: linear-gradient(135deg, {{ theme_cover_start }} 0%, {{ theme_cover_mid }} 30%, {{ theme_cover_mid }} 72%, {{ theme_cover_end }} 100%);
 }
 
 @page inner {
@@ -51,18 +51,19 @@ body {
     background: linear-gradient(90deg, {{ theme_cover_start }} 0%, {{ theme_primary }} 40%, {{ theme_primary_bright }} 70%, {{ theme_primary_dark }} 100%);
 }
 .cover-body { padding-top: 28mm; }
-.cover-logo { width: 61mm; }
-.cover-kicker {
-    margin-top: 7.5mm;
-    font-family: intersemibold;
-    font-size: 6.61pt;
-    letter-spacing: 1.1pt;
-    text-transform: uppercase;
-    color: #ffffff;
+/* the logo sits on a white rounded card: width = logo width (inline), padding adds around it */
+.cover-logo-box {
+    margin: 0 auto;
+    padding: 3.2mm 4.6mm;
+    background-color: #ffffff;
+    border-radius: 2.4mm;
+    line-height: 1;
+    font-size: 1pt;
 }
+.cover-logo { width: 61mm; }
 .cover-title {
     width: 128mm;
-    margin: 2.6mm auto 0 auto;
+    margin: 9mm auto 0 auto;
     font-family: interextrabold;
     font-size: 29.76pt;
     line-height: 1.04;
@@ -70,11 +71,10 @@ body {
     color: #ffffff;
 }
 .cover-subtitle {
-    margin-top: 4.2mm;
-    font-family: interextrabold;
-    font-size: 7.97pt;
-    letter-spacing: 1.35pt;
-    text-transform: uppercase;
+    margin-top: 4.6mm;
+    font-family: intersemibold;
+    font-size: 10.6pt;
+    letter-spacing: 0.3pt;
     color: #ffffff;
 }
 .cover-meta {
@@ -167,6 +167,9 @@ p.intro { margin: 0 0 6.3mm 0; font-size: 8.6pt; line-height: 1.65; color: #a1a1
     color: #f8fafc;
 }
 .card-value.md { font-size: 16.04pt; }
+/* summary cards carry a small note under the value */
+.card-sum { height: 17.4mm; }
+.card-note { margin-top: 1.5mm; font-family: intersemibold; font-size: 6.9pt; line-height: 1.3; color: #a1a1aa; }
 .card-value.sm { font-size: 15.55pt; }
 
 /* ---------------------------------------------------- 2 · summary / checklist */
@@ -209,12 +212,14 @@ td.accent-text {
     color: {{ theme_primary }};
 }
 .fm-title { margin-top: 1.4mm; font-family: interextrabold; font-size: 12.44pt; line-height: 1.25; color: #f8fafc; }
+.fm-desc { margin-top: 1.2mm; font-size: 8.2pt; line-height: 1.4; color: #a1a1aa; }
+.tl-head { padding: 0 0 2mm 0; font-family: interextrabold; font-size: 8.9pt; line-height: 1.3; color: #f8fafc; }
 
 table.tasks { width: 100%; border-collapse: collapse; }
 td.tasks-col { width: 48%; vertical-align: top; padding: 0; }
 td.tasks-gap { width: 4%; padding: 0; }
 table.tl { width: 100%; border-collapse: collapse; }
-td.tl-icon { width: 6.5mm; height: 12.4mm; padding: 2.3mm 0 0 0; vertical-align: top; border-top: 0.25mm solid #2b2b30; }
+td.tl-icon { width: 6.5mm; height: 8.4mm; padding: 2.3mm 0 0 0; vertical-align: top; border-top: 0.25mm solid #2b2b30; }
 td.tl-text { padding: 2.2mm 0 2.2mm 0; vertical-align: top; font-size: 8.5pt; line-height: 1.45; color: #e4e4e7; border-top: 0.25mm solid #2b2b30; }
 td.r1 { border-top: none; }
 
@@ -229,12 +234,18 @@ td.r1 { border-top: none; }
 .g-small { font-family: inter; font-weight: bold; font-size: 7.39pt; color: #a1a1aa; }
 .g-note { margin-top: 1.8mm; font-family: intersemibold; font-size: 6.71pt; line-height: 1.3; color: #71717a; }
 .dot { font-size: 4.6pt; }
+/* at a glance: group headings above each row, plain notes under the values */
+.g-group { margin: 0 0 2.6mm 0; font-family: interextrabold; font-size: 6.9pt; letter-spacing: 0.9pt; text-transform: uppercase; color: #e4e4e7; }
+.g-group-next { margin-top: 5.2mm; }
+.g-sub { margin-top: 1.8mm; font-family: intersemibold; font-size: 7.1pt; line-height: 1.3; color: #a1a1aa; }
 .row-gap { height: 3.8mm; font-size: 1pt; line-height: 1pt; }
 
 /* -------------------------------------------------------------- 4 · traffic */
 .col-left { float: left; width: 69.6mm; }
 .col-right { float: left; width: 104.2mm; margin-left: 4mm; }
 .col-title { margin: 7.4mm 0 3.2mm 0; }
+.col-title.has-sub { margin-bottom: 0.8mm; }
+.col-sub { margin: 0 0 3mm 0; font-size: 7.3pt; line-height: 1.3; color: #a1a1aa; }
 .tbl-card { padding: 0; }
 table.dt { width: 100%; border-collapse: collapse; font-size: 8.55pt; }
 table.dt th {
@@ -253,8 +264,7 @@ table.dt td.r1 { border-top: none; }
 td.src-label { font-family: inter; font-weight: bold; }
 td.num { text-align: right; }
 td.num-strong { text-align: right; font-weight: bold; color: #f8fafc; }
-table.dt td.path { font-family: dejavusansmono; font-size: 8.55pt; color: #e4e4e7; }
-table.dt td.pr1 { color: {{ theme_primary }}; }
+table.dt td.path { font-size: 8.55pt; color: #e4e4e7; }
 table.dt th.right { text-align: right; }
 table.dt td.num, table.dt td.num-strong { text-align: right; }
 table.dt td.num-strong { font-weight: bold; color: #f8fafc; }
@@ -287,10 +297,14 @@ td.pm-value { padding: 0; vertical-align: middle; text-align: right; font-family
 
 /* ------------------------------------------------------ 6 · backup & updates */
 .half { float: left; width: 76.5mm; height: 55mm; padding: 5mm 4.9mm; }
-.half-text { margin-top: 3.2mm; font-size: 8.75pt; line-height: 1.65; color: #71717a; }
+.half-label { font-family: intersemibold; font-size: 8.4pt; color: #e4e4e7; }
+.half-dot { font-size: 5pt; color: #52525b; }
+.half-head { margin-top: 3mm; font-family: interextrabold; font-size: 12.4pt; line-height: 1.2; color: #f8fafc; }
+.half-text { margin-top: 2.4mm; font-size: 8.3pt; line-height: 1.55; color: #a1a1aa; }
+td.kv-strong { font-family: interextrabold; }
 table.kv { width: 100%; border-collapse: collapse; margin-top: 2.4mm; }
-td.kv-label { padding: 2.1mm 0; font-family: intersemibold; font-size: 9.23pt; color: #f8fafc; border-top: 0.25mm solid #2b2b30; }
-td.kv-value { padding: 2.1mm 0; text-align: right; font-size: 9.23pt; color: #f8fafc; border-top: 0.25mm solid #2b2b30; }
+td.kv-label { padding: 2.1mm 0; font-family: inter; font-size: 8.6pt; color: #a1a1aa; border-top: 0.25mm solid #2b2b30; }
+td.kv-value { padding: 2.1mm 0; text-align: right; font-size: 8.6pt; color: #f8fafc; border-top: 0.25mm solid #2b2b30; }
 td.kv-first { border-top: none; }
 td.kv-row { }
 td.core-label { padding: 3.6mm 0 0 0; font-family: intersemibold; font-size: 9.23pt; color: #f8fafc; vertical-align: middle; }
@@ -321,13 +335,14 @@ td.pill-l { width: 35mm; background-image: url(assets/pill-green-l.svg); }
 table.pill-wrap { border-collapse: collapse; }
 
 /* ---------------------------------------------------------- 7 · security */
-.sec { float: left; width: 73.8mm; height: 74mm; padding: 6.2mm 6.3mm; }
-.sec-text { margin-top: 1mm; font-size: 8.75pt; line-height: 1.6; color: #71717a; }
-table.sl { width: 100%; border-collapse: collapse; margin-top: 3.6mm; }
-td.sl-icon { width: 6.6mm; padding: 2.5mm 0; vertical-align: middle; border-top: 0.25mm solid #2b2b30; }
-td.sl-label { padding: 2.5mm 0; vertical-align: middle; font-size: 8.5pt; color: #e4e4e7; border-top: 0.25mm solid #2b2b30; }
+.sec { float: left; width: 73.8mm; height: 82mm; padding: 6.2mm 6.3mm; }
+.sec-title { font-size: 11.66pt; }
+.sec-text { margin-top: 1mm; font-size: 8.3pt; line-height: 1.55; color: #a1a1aa; }
+table.sl { width: 100%; border-collapse: collapse; margin-top: 3mm; }
+td.sl-label { padding: 2.4mm 0; vertical-align: middle; font-family: intersemibold; font-size: 8.7pt; line-height: 1.3; color: #f8fafc; border-top: 0.25mm solid #2b2b30; }
+.sl-sub { margin-top: 0.6mm; font-family: inter; font-size: 7.1pt; color: #a1a1aa; }
 td.sl-right { padding: 1.9mm 0; vertical-align: middle; text-align: right; border-top: 0.25mm solid #2b2b30; }
-td.sl-value { padding: 2.5mm 0; vertical-align: middle; text-align: right; font-family: interextrabold; font-size: 8.5pt; color: #f8fafc; border-top: 0.25mm solid #2b2b30; }
+td.sl-value { padding: 2.4mm 0; vertical-align: middle; text-align: right; font-family: interextrabold; font-size: 8.7pt; color: #f8fafc; border-top: 0.25mm solid #2b2b30; }
 td.sr1 { border-top: none; }
 
 .check-card {
@@ -377,4 +392,7 @@ td.foot {
     color: #71717a;
 }
 td.foot-right { text-align: right; }
+/* left: sentence case lead-in, the maintainer's address in capitals */
+td.foot-left { text-transform: none; letter-spacing: 0.2pt; }
+.foot-brand { text-transform: uppercase; letter-spacing: 0.45pt; }
 .muted { color: #71717a; }
