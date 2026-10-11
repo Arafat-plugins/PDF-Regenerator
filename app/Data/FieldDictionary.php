@@ -132,6 +132,8 @@ final class FieldDictionary
     /** Injected by the app at render time. */
     private const SYSTEM = [
         'logo_src', 'pagespeed_ring_src', 'pagespeed_color', 'uptime_color', 'security_status_color', 'backup_status_color',
+        'security_status_label', 'security_status_note', 'backup_status_label', 'backup_status_note',
+        'backup_headline', 'backup_text', 'core_headline', 'core_text',
         'custom_fields_count', 'line_items_count', 'theme_updates_count', 'plugin_updates_count', 'detail_rows_count', 'brand_name', 'theme_primary_light',
         'theme_primary', 'theme_primary_dark', 'theme_primary_bright', 'theme_primary_soft',
         'theme_primary_faint', 'theme_cover_start', 'theme_cover_mid', 'theme_cover_end',
